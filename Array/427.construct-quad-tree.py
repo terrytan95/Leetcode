@@ -63,19 +63,19 @@ class Node:
 class Solution:
     def construct(self, grid: 'List[List[int]]') -> 'Node':
         def dfs(top, bottom, left, right):
-            val = grid[top][left]
+            val = True if grid[top][left] == 1 else False
             isLeaf = True
             for i in range(top, bottom):
                 for j in range(left, right):
-                    if grid[i][j]!=val:
+                    if grid[i][j] != val:
                         isLeaf = False
                         break
             if isLeaf:
                 return Node(val,True,None,None,None,None)
-            topleft = dfs(top, (top+bottom)/2, left, (left+right)/2)
-            topright = dfs(top, (top+bottom)/2, (left+right)/2, right)
-            bottomleft = dfs((top+bottom)/2, bottom, left, (left+right)/2)
-            bottomright = dfs((top+bottom)/2, bottom, (left+right)/2, right)
+            topleft = dfs(top, (top+bottom)//2, left, (left+right)//2)
+            topright = dfs(top, (top+bottom)//2, (left+right)//2, right)
+            bottomleft = dfs((top+bottom)//2, bottom, left, (left+right)//2)
+            bottomright = dfs((top+bottom)//2, bottom, (left+right)//2, right)
             return Node(val,False,topleft,topright,bottomleft,bottomright)
 			
         return dfs(0,len(grid), 0, len(grid[0]))
