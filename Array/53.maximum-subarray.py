@@ -30,7 +30,6 @@
 #
 class Solution:
     #nums: [-2,1,-3,4,-1,2,1,-5,4]
-    #f: [-2,1,-2,4,]
     def maxSubArray(self, nums: 'List[int]') -> 'int':
         f = nums
         for i in range(1, len(f)):
