@@ -31,16 +31,43 @@
 # Definition for an interval.
 
 
-class Interval:
-    def __init__(self, s=0, e=0):
-        self.start = s
-        self.end = e
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        if (not intervals):
+            return 0
 
-
-class Solution:
-    def minMeetingRooms(self, intervals: 'List[Interval]') -> 'int':
-        intervals.sort(key=lambda x: x.start)
-        i = i
-        result = 0
-        while i < len(intervals):
-            intervals[i].
+        starting = {}
+        ending = {}
+        lst = []
+        room = 0
+        need = 0
+        
+        for item in intervals:
+            if item.start in starting:
+                starting[item.start] += 1
+            else:
+                starting[item.start] = 1
+                if item.start not in ending:
+                    lst.append(item.start)
+            if item.end in ending:
+                ending[item.end] += 1
+            else:
+                ending[item.end] = 1
+                if item.end not in starting:
+                    lst.append(item.end)
+                    
+        lst.sort()
+                
+        for item in lst:
+            if item in starting:
+                room += starting[item]
+            if item in ending:
+                room -= ending[item]
+            if room > need:
+                need = room
+            
+        return need
