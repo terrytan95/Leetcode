@@ -1,4 +1,3 @@
-string = "-4193 with words"
-for i in enumerate(string):
-    print(i)
+
+print(3453//1000)
 
