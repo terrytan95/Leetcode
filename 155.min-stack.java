@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Vector;
+
 /*
  * @lc app=leetcode id=155 lang=java
  *
@@ -45,25 +48,40 @@
  */
 class MinStack {
 
+    LinkedList<Integer> stack;
+    LinkedList<Integer> min;
     /** initialize your data structure here. */
     public MinStack() {
-        
+        this.stack = new LinkedList<Integer>();
+        this.min = new LinkedList<Integer>();
     }
     
     public void push(int x) {
-        
+        if (this.stack.size() == 0){
+            this.min.add(x);
+        }else{
+            if(x <= this.min.getLast()){
+                this.min.add(x);
+            }
+        }
+        this.stack.add(x);
     }
     
     public void pop() {
-        
+        int a = this.stack.getLast();
+        int b = this.min.getLast();
+        if(a == b){
+            this.min.removeLast();
+        }
+        this.stack.removeLast();         
     }
     
     public int top() {
-        
+        return this.stack.getLast();
     }
     
     public int getMin() {
-        
+        return this.min.getLast();
     }
 }
 
