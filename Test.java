@@ -1,58 +1,26 @@
+import java.util.Arrays;
 import java.util.LinkedList;
+
 public class Test{ 
     public static void main(String args[]){
-        MinStack stack = new MinStack();
-        stack.push(512);
-        stack.push(-1024);
-        stack.push(-1024);
-        stack.push(512);
-        stack.pop();
-        System.out.println(stack.getMin());
-        stack.pop();
-        System.out.println(stack.getMin());
-        stack.pop();
-        System.out.println(stack.getMin());
-        System.out.println(stack.min.toString());
-        
-    }
 
-}
-
-class MinStack {
-
-    LinkedList<Integer> stack;
-    LinkedList<Integer> min;
-    /** initialize your data structure here. */
-    public MinStack() {
-        this.stack = new LinkedList<Integer>();
-        this.min = new LinkedList<Integer>();
-    }
-    
-    public void push(int x) {
-        if (this.stack.size() == 0){
-            this.min.add(x);
-        }else{
-            if(x <= this.min.getLast()){
-                this.min.add(x);
-            }
+        int number = 35642536;
+        String temp = Integer.toString(number);
+        int[] array = new int[temp.length()];
+        for (int i = 0; i < temp.length(); i++)
+        {
+            array[i] = temp.charAt(i) - '0';
         }
-        this.stack.add(x);
-    }
-    
-    public void pop() {
-        int a = this.stack.getLast();
-        int b = this.min.getLast();
-        if(a == b){
-            this.min.removeLast();
+
+        Arrays.sort(array);
+        for (int i : array) { 
+            System.out.print(i + " "); 
+        } 
+        int res=0;
+        for(int i=0;i<array.length;i++) {
+            res=res*10+array[i];
         }
-        this.stack.removeLast();        
+        System.out.println(res);
     }
-    
-    public int top() {
-        return this.stack.getLast();
-    }
-    
-    public int getMin() {
-        return this.min.getLast();
-    }
+
 }
