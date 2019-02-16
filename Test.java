@@ -3,12 +3,9 @@ import java.util.LinkedList;
 
 public class Test{ 
     public static void main(String args[]){
-
-        ListNode i = new ListNode(1);
-        ListNode j = i;
-        ListNode o = new ListNode(5);
-        j.next = o;
-        System.out.println(i.next.val);
+        String i = "asdnqjskjzbckjzABBAVYDUAIXBZJX";
+        i = i.replaceAll("[aeiouAEIOU]", "");
+        System.out.println(i.codePointAt(2));
     }
 
 }
