@@ -59,24 +59,21 @@
 import java.util.*;
 class Solution {
     public String mostCommonWord(String paragraph, String[] banned) {
+        String result = "";
+        int max = -1;
         Set<String> banSet = new HashSet<>(Arrays.asList(banned));
         HashMap<String, Integer> stat = new HashMap<>();
         String[] afterProcess = paragraph.replaceAll("[!?',;.]", " ").toLowerCase().trim().split("\\s+");
         for(String item: afterProcess){
             if(!banSet.contains(item)){
                 stat.put(item, stat.getOrDefault(item, 0) + 1);
+                if(stat.get(item) > max){
+                    max = stat.get(item);
+                    result = item;
+                }
             }
         }
-        String result = "";
-        int max = -1;
-        int value = 0;
-        for(String key: stat.keySet()){
-            value = stat.get(key);
-            if(value > max){
-                max = value;
-                result = key;
-            }
-        }
+
         return result;
     }
 }
