@@ -1,3 +1,4 @@
+import java.util.*;
 /*
  * @lc app=leetcode id=973 lang=java
  *
@@ -67,9 +68,9 @@ class Solution {
             result[i][1] = i;
             result[i][0] = value;
         }
-        java.util.Arrays.sort(result, new java.util.Comparator<int[]>() {
+        Arrays.sort(result, new Comparator<int[]>() {
             public int compare(int[] a, int[] b) {
-                return Double.compare(a[0], b[0]);
+                return a[0] - b[0];
             }
         });
         
