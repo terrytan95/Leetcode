@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - high_five",
+            "request": "launch",
+            "mainClass": "Amazon.high_five",
+            "projectName": "LeetCode_d92b4228"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Test",
             "request": "launch",
             "mainClass": "Test"
