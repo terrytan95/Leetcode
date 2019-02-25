@@ -53,24 +53,29 @@ import java.util.HashSet;
  * 
  */
 import java.util.*;
+
 class Solution {
+    private boolean[] visited = null;
+    private List<String> wordDict = null;
+
     public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> wordDictSet=new HashSet(wordDict);
-        Queue<Integer> queue = new LinkedList<>();
-        int[] visited = new int[s.length()];
-        queue.add(0);
-        while (!queue.isEmpty()) {
-            int start = queue.remove();
-            if (visited[start] == 0) {
-                for (int end = start + 1; end <= s.length(); end++) {
-                    if (wordDictSet.contains(s.substring(start, end))) {
-                        queue.add(end);
-                        if (end == s.length()) {
-                            return true;
-                        }
-                    }
-                }
-                visited[start] = 1;
+        if (s == null || s.length() == 0)
+            return false;
+        visited = new boolean[s.length() + 1];
+        this.wordDict = wordDict;
+        return visit(s, 0);
+    }
+
+    private boolean visit(String s, int offset) {
+        if (offset == s.length())
+            return true;
+        visited[offset] = true;
+
+        for (String word : wordDict) {
+            if (s.startsWith(word, offset) && !visited[offset + word.length()]) {
+                // We haven't visited here, try it
+                if (visit(s, offset + word.length()))
+                    return true;
             }
         }
         return false;
