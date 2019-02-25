@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /*
  * @lc app=leetcode id=957 lang=java
@@ -82,16 +84,17 @@ import java.util.Arrays;
  */
 class Solution {
     public int[] prisonAfterNDays(int[] cells, int N) {
-        int[] temp = new int[cells.length];
-        Arrays.fill(temp, 0);
-        for(int day = 0; day < N; day++){
-            for (int i = 2; i < 8; i++){
-                if(cells[i-2] == cells[i]){
-                    temp[i-1] = 1;
+        N = N % 14;
+        if (N == 0)
+            N = 14;
+        for (int i = 0; i < N; i++) {
+            int[] temp = new int[8];
+            for (int j = 2; j < cells.length; j++) {
+                if (cells[j - 2] == cells[j]) {
+                    temp[j - 1] = 1;
                 }
             }
             cells = temp;
-            Arrays.fill(temp, 0);
         }
         return cells;
     }
