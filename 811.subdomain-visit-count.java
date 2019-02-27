@@ -85,4 +85,25 @@ class Solution {
             ans.add("" + counts.get(dom) + " " + dom);
         return ans;
     }
+
+    public List<String> solution2(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap<>();
+        for(String cpdomain : cpdomains){
+            int i = cpdomain.indexOf(" ");
+            int times = Integer.parseInt(cpdomain.substring(0, i));
+            String domain = cpdomain.substring(i + 1);
+            map.put(domain, map.getOrDefault(domain, 0) + times);
+            int dot = domain.indexOf(".");
+            while(dot != -1){
+                domain = domain.substring(dot + 1);
+                map.put(domain, map.getOrDefault(domain, 0) + times);
+                dot = domain.indexOf(".");
+            }
+        }
+        List<String> list = new ArrayList<>();
+        for(String each : map.keySet()) list.add(map.get(each) + " " + each);
+        return list;
+    }
 }
+
+
