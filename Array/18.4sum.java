@@ -37,66 +37,56 @@ import java.util.*;
  */
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        if (nums == null || nums.length < 4) return new ArrayList<>();
-        
+        if(nums.length < 4 || nums == null) return new ArrayList<>();
+
         Arrays.sort(nums);
-        return kthSum(nums, 4, 0, target);
+
+        return ksum(nums, 0, 4, target);
     }
-    public List<List<Integer>> kthSum(int[] nums, int k, int start, int target) {
-        List<List<Integer>> results = new ArrayList<>();
-        if (nums.length < k) return results;
-        
-        if (k == 2) return twoSum(nums, start, target);
-        
-        for (int pos = start; pos < nums.length; pos++) {
-            // If we can't find target with the following numbers, quit
-            // - `target < nums[pos] * k`: target is too small
-            // - `target > nums[nums.length - 1] * k`: target is too big
-            if (target < nums[pos] * k || target > nums[nums.length - 1] * k)
-                break;
-            
-			// We now want to find k-1 sums to target - num[pos]
-            List<List<Integer>> kthSumResult = kthSum(nums, k - 1, pos + 1, target - nums[pos]);
-            
-            // If we found results, add them
-            for (List<Integer> kthSumList : kthSumResult) {
-                kthSumList.add(nums[pos]);
-                results.add(kthSumList);
+
+    public List<List<Integer>> ksum(int[] nums, int start, int k, int target){
+        if(k == 2) return twoSum(nums, start, target);
+        List<List<Integer>> result = new ArrayList<>();
+        for(int pos = start; pos < nums.length; pos++){
+            if((nums[pos] * k > target) || (nums[nums.length - 1] * k < target)) break;
+
+            List<List<Integer>> ksumList = ksum(nums, pos+1, k-1, target - nums[pos]);
+
+            for(List<Integer> klist: ksumList){
+                klist.add(nums[pos]);
+                result.add(klist);
             }
-            
-            // Skip identical values
-            while (pos < nums.length - 1 && nums[pos] == nums[pos + 1])
+
+            while(pos < nums.length - 1 && nums[pos] == nums[pos+1]){
                 pos++;
+            }
+
         }
-                
-        return results;
+        return result;
     }
-    public List<List<Integer>> twoSum(int[] nums, int start, int target) {
-        List<List<Integer>> results = new ArrayList<>();
+
+    public List<List<Integer>> twoSum(int[] nums, int start, int target){
+        List<List<Integer>> result = new ArrayList<>();
         int end = nums.length - 1;
-        
-        while (start < end) {
-            if (target < nums[start] * 2 || target > nums[end] * 2)
-                break;
-            
+        while(start < end){
+            if(nums[start] * 2 > target || nums[end] * 2 < target) break;
             int sum = nums[start] + nums[end];
-            if (sum == target) {
-                List<Integer> tmpResult = new ArrayList();
-                tmpResult.add(nums[start]);
-                tmpResult.add(nums[end]);
-                
-                results.add(tmpResult);
-                
-                // Skip identical values
-                while (start < end && nums[start] == tmpResult.get(0)) { start++; }
-                while (start < end && nums[end] == tmpResult.get(1)) { end--; }
-            } else if (sum < target) {
+            if(sum == target){
+                List<Integer> tempList = new ArrayList<>();
+                tempList.add(nums[start]);
+                tempList.add(nums[end]);
+
+                result.add(tempList);
+
+                while(start < end && nums[start] == tempList.get(0)) start++;
+                while(start < end && nums[end] == tempList.get(1)) end--;
+
+            }else if(sum < target){
                 start++;
-            } else {
+            }else{
                 end--;
             }
         }
-        
-        return results;
+        return result;
     }
 }
