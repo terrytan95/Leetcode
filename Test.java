@@ -9,13 +9,16 @@ class IntComparator implements Comparator<Integer>{
 }
 public class Test {
     public static void main(String args[]) {
-        PriorityQueue<Integer> q = new PriorityQueue<>(new IntComparator());
+        PriorityQueue<Integer> q = new PriorityQueue<>();
         q.offer(3);
         q.offer(4);
         q.offer(7);
         q.offer(1);
         q.offer(5);
-        System.out.println(q);
+        Iterator<Integer> it = q.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        } 
         
     }
 
