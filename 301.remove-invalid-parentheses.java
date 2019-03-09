@@ -60,5 +60,6 @@ class Solution {
             remove(reversed, ans, 0, 0, new char[]{')', '('});
         else // finished right to left
             ans.add(reversed);
+            
     }
 }
