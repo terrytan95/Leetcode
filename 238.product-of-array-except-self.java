@@ -45,12 +45,12 @@ class Solution {
     // }
 
     public int[] productExceptSelf(int[] nums) {
-        final int[] result = new int[nums.length];
-        for(int i=0, leftProduct=1; i<nums.length; i++) { // left product
+        int[] result = new int[nums.length];
+        for(int i = 0, leftProduct = 1; i < nums.length; i++) { // left product
             result[i] = leftProduct;
             leftProduct *= nums[i];
         }
-        for(int i=nums.length-1, rightProduct=1; i>=0; i--) { // right product
+        for(int i = nums.length - 1, rightProduct = 1; i >= 0; i--) { // right product
             result[i] *= rightProduct;
             rightProduct *= nums[i];
         }

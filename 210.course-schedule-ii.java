@@ -1,3 +1,4 @@
+
 /*
  * @lc app=leetcode id=210 lang=java
  *
@@ -53,15 +54,43 @@
  * 
  * 
  */
+import java.util.*;
 class Solution {
+    int idx = 0;
+    int[] sorted;
+    int[] visited;
+    List<List<Integer>> g;
+    
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] result = new int[numCourses];
-        if(prerequisites == null || prerequisites.length == 0){
-            return result;
+        // 0: unvisited
+        // 1: visiting
+        // 2: visited
+        visited = new int[numCourses];
+        sorted = new int[numCourses];
+        g = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            g.add(new ArrayList<Integer>());
         }
-
-
-        return result;
+        for (int[] p: prerequisites) {
+            g.get(p[0]).add(p[1]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] != 0) continue;
+            if (!dfs(i)) return new int[0];
+        }
+        return sorted;
+    }
+    
+    boolean dfs(int c) {
+        visited[c] = 1;
+        for (int nb: g.get(c)) {
+            if (visited[nb] == 2) continue;
+            if (visited[nb] == 1) return false;
+            if (!dfs(nb)) return false;
+        }
+        visited[c] = 2;
+        sorted[idx++] = c;
+        return true;
     }
 }
 

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=297 lang=java
@@ -49,59 +49,43 @@ import java.util.ArrayList;
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
+ 
 public class Codec {
-    int i = 0;
-    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        if (root == null)
-            return "null,";
-        String data = "";
-        if(i == 0){
-            data += root.val + ",";
-            ++i;
+        if (root == null) return "";
+        Queue<TreeNode> q = new LinkedList<>();
+        StringBuilder res = new StringBuilder();
+        q.add(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (node == null) {
+                res.append("n ");
+                continue;
+            }
+            res.append(node.val + " ");
+            q.add(node.left);
+            q.add(node.right);
         }
-        String left = serialize(root.left);
-        String right = serialize(root.right);
-
-        data += left + right;
-        return data;
+        return res.toString();
     }
 
-    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if(data.equals("null,")) return null;
-        data = data.substring(0, data.length() - 1);
-        System.out.println(data);
-
-        String[] strList = data.split("\\,");
-        System.out.println(strList[6]);
-        ArrayList<Integer> dataList = new ArrayList<Integer>();
-        for (String item : strList) {
-            if (item.equals("null")) {
-                dataList.add(null);
-            } else {
-                dataList.add(Integer.parseInt(item));
+        if (data == "") return null;
+        Queue<TreeNode> q = new LinkedList<>();
+        String[] values = data.split(" ");
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        q.add(root);
+        for (int i = 1; i < values.length; i++) {
+            TreeNode parent = q.poll();
+            if (!values[i].equals("n")) {
+                TreeNode left = new TreeNode(Integer.parseInt(values[i]));
+                parent.left = left;
+                q.add(left);
             }
-        }
-        TreeNode root = new TreeNode(dataList.get(0));
-        dataList.remove(0);
-        TreeNode left = root.left;
-        TreeNode right = root.right;
-        while(!dataList.isEmpty()){
-            if(dataList.get(0) == null){
-                left = null;
-            }else{
-                left.val = dataList.get(0);
-                dataList.remove(0);
-                left = left.left;
-            }
-
-            if(dataList.get(0) == null){
-                right = null;
-            }else{
-                right.val = dataList.get(0);
-                dataList.remove(0);
-                right = right.right;
+            if (!values[++i].equals("n")) {
+                TreeNode right = new TreeNode(Integer.parseInt(values[i]));
+                parent.right = right;
+                q.add(right);
             }
         }
         return root;

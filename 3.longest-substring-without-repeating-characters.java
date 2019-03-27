@@ -54,27 +54,16 @@ import java.util.Set;
  */
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        if (s == null || s.equals("")) {
-            return 0;
-        }
-        if (s.length() == 1)
-            return 1;
-        int length = 1;
-        AbstractList<Character> chars = new LinkedList<Character>();
-
-        chars.add(s.charAt(0));
-        for (int i = 1; i < s.length(); ++i) {
-            if (!chars.contains(s.charAt(i))) {
-                chars.add(s.charAt(i));
-                if (chars.size() > length)
-                    length = chars.size();
-            } else {
-                int index = chars.indexOf(s.charAt(i));
-                chars.subList(0, index + 1).clear();;
-                chars.add(s.charAt(i));
-                Integer.parseInt(s)
+        int[] occur = new int[256];
+        int maxL = 0;
+        for(int i = 0, j = 0; i < s.length(); ++i){
+            char ch = s.charAt(i);
+            occur[ch]++;
+            while(occur[ch] > 1){
+                occur[s.charAt(j++)]--;
             }
+            maxL = Math.max(maxL, i - j + 1);
         }
-        return length;
+        return maxL;
     }
 }
