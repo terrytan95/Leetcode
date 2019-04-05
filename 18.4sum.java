@@ -37,27 +37,30 @@ import java.util.*;
  */
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        if(nums.length < 4 || nums == null) return new ArrayList<>();
+        if (nums.length < 4 || nums == null)
+            return new ArrayList<>();
 
         Arrays.sort(nums);
 
         return ksum(nums, 0, 4, target);
     }
 
-    public List<List<Integer>> ksum(int[] nums, int start, int k, int target){
-        if(k == 2) return twoSum(nums, start, target);
+    public List<List<Integer>> ksum(int[] nums, int start, int k, int target) {
+        if (k == 2)
+            return twoSum(nums, start, target);
         List<List<Integer>> result = new ArrayList<>();
-        for(int pos = start; pos < nums.length; pos++){
-            if((nums[pos] * k > target) || (nums[nums.length - 1] * k < target)) break;
+        for (int pos = start; pos < nums.length; pos++) {
+            if ((nums[pos] * k > target) || (nums[nums.length - 1] * k < target))
+                break;
 
-            List<List<Integer>> ksumList = ksum(nums, pos+1, k-1, target - nums[pos]);
+            List<List<Integer>> ksumList = ksum(nums, pos + 1, k - 1, target - nums[pos]);
 
-            for(List<Integer> klist: ksumList){
+            for (List<Integer> klist : ksumList) {
                 klist.add(nums[pos]);
                 result.add(klist);
             }
 
-            while(pos < nums.length - 1 && nums[pos] == nums[pos+1]){
+            while (pos < nums.length - 1 && nums[pos] == nums[pos + 1]) {
                 pos++;
             }
 
@@ -65,25 +68,28 @@ class Solution {
         return result;
     }
 
-    public List<List<Integer>> twoSum(int[] nums, int start, int target){
+    public List<List<Integer>> twoSum(int[] nums, int start, int target) {
         List<List<Integer>> result = new ArrayList<>();
         int end = nums.length - 1;
-        while(start < end){
-            if(nums[start] * 2 > target || nums[end] * 2 < target) break;
+        while (start < end) {
+            if (nums[start] * 2 > target || nums[end] * 2 < target)
+                break;
             int sum = nums[start] + nums[end];
-            if(sum == target){
+            if (sum == target) {
                 List<Integer> tempList = new ArrayList<>();
                 tempList.add(nums[start]);
                 tempList.add(nums[end]);
 
                 result.add(tempList);
 
-                while(start < end && nums[start] == tempList.get(0)) start++;
-                while(start < end && nums[end] == tempList.get(1)) end--;
+                while (start < end && nums[start] == tempList.get(0))
+                    start++;
+                while (start < end && nums[end] == tempList.get(1))
+                    end--;
 
-            }else if(sum < target){
+            } else if (sum < target) {
                 start++;
-            }else{
+            } else {
                 end--;
             }
         }
