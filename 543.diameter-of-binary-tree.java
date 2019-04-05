@@ -46,19 +46,21 @@ import java.util.*;
  */
 
 class Solution {
-    private int maxDiameter = 0;
+
+    int max = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null)
-            return 0;
-        maxDepth(root);
-        return this.maxDiameter;
+        depth(root);
+        return max;
     }
 
-    public int maxDepth(TreeNode root) {
-        int leftDepth = root.left == null ? 0 : maxDepth(root.left) + 1;
-        int rightDepth = root.right == null ? 0 : maxDepth(root.right) + 1;
-        this.maxDiameter = Math.max(this.maxDiameter, leftDepth + rightDepth);
-        return Math.max(leftDepth, rightDepth);
+    public int depth(TreeNode root) {
+        if (root == null)
+            return 0;
+        int leftMax = depth(root.left);
+        int rightMax = depth(root.right);
+        max = Math.max(max, leftMax + rightMax);
+
+        return Math.max(leftMax, rightMax) + 1;
     }
 }
