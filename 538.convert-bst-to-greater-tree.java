@@ -89,12 +89,12 @@ class Solution {
             return;
         }
 
-        // BST中比当前节点值大的节点一定在右子树中
+        // BST中比当前节点值大的节点一定在右子树中.
         inOrder(node.right);
 
-        // 更新当前节点值
+        // 更新当前节点值.
         node.val += sum;
-        // 更新sum
+        // 更新sum.
         sum = node.val;
 
         inOrder(node.left);
