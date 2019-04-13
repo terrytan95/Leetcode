@@ -48,14 +48,14 @@
 class Solution {
 
     public int uniquePaths(int m, int n) {
-        int[] ways = new int[n];
+        int[] ways = new int[m];
         ways[0] = 1;
-        for (int i = 0; i < m; i++) {
-            for (int j = 1; j < n; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < m; j++) {
                 ways[j] += ways[j - 1];
             }
         }
-        return ways[n - 1];
+        return ways[m - 1];
     }
 
 }
