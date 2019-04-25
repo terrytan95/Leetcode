@@ -9,7 +9,7 @@
  * @return {boolean}
  */
 
-//object
+//object good
 var isAnagram = function(s, t) {
 	let s_ob = {};
 	let t_ob = {};
@@ -31,6 +31,26 @@ var isAnagram = function(s, t) {
 
 	for (var i = 0; i < t.length; ++i) {
 		if (s_ob[t[i]] !== t_ob[t[i]]) return false;
+	}
+
+	return true;
+};
+
+//sort and compare
+var isAnagram = function(s, t) {
+	if (s.length !== t.length) return false;
+	var news = [...s].sort((a, b) => {
+		return a.charCodeAt(0) - b.charCodeAt(0);
+	});
+
+	var newt = [...t].sort((a, b) => {
+		return a.charCodeAt(0) - b.charCodeAt(0);
+	});
+
+	if (news.length !== newt.length) return false;
+
+	for (let i = 0; i < news.length; i++) {
+		if (news[i] != newt[i]) return false;
 	}
 
 	return true;
