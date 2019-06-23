@@ -36,7 +36,7 @@ var isAnagram = function(s, t) {
 	return true;
 };
 
-//sort and compare
+//char array sort and compare
 var isAnagram = function(s, t) {
 	if (s.length !== t.length) return false;
 	var news = [...s].sort((a, b) => {

@@ -8,6 +8,9 @@
  * @param {number} target
  * @return {number[]}
  */
+//binary search then spread
+//time O(logn)
+//space O(1)
 var searchRange = function(nums, target) {
 	if (nums.length === 0) return [-1, -1];
 	let left = 0;

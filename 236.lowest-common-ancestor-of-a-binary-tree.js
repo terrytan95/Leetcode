@@ -16,6 +16,10 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
+
+//recursion
+//time O(n) need to search all the node
+//space O(n)
 var lowestCommonAncestor = function(root, p, q) {
 	if (!root || !p || !q) {
 		return null;
@@ -29,5 +33,3 @@ var lowestCommonAncestor = function(root, p, q) {
 
 	return left === null ? right : right === null ? left : root;
 };
-//time O(n) need to search all the node
-//space O(n)
