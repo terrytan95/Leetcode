@@ -1,2 +1,2 @@
 # Leetcode
-leetcode
+leetcode solutions in Java and JavaScript
